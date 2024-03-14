@@ -1,0 +1,6 @@
+pillow
+screeninfo
+numpy
+cv2
+keras-ocr
+tensorflow<2.11
