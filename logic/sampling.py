@@ -26,6 +26,21 @@ class Sampler:
     
     def sample_screen(self, image=None):
 
+        # Define a desired capture area size (adjust as needed)
+        capture_width = int(self.screen_width * 2 / 3 )  # Adjust width for your desired capture size
+        capture_height = int(self.screen_height / 4 )  # Adjust height for your desired capture size
+        middle_x = int(self.screen_width / 2)
+        middle_y = int(self.screen_height / 2)
+        top_left_x = middle_x - int(capture_width / 2)
+        top_left_y = middle_y - int(capture_height / 2)
+
+        self.window = Window(top_left_x, top_left_y, capture_width, capture_height)
+
+        print("No image provided")
+        # Capture the screenshot
+        self.screenshot = ImageGrab.grab((top_left_x, top_left_y, top_left_x + capture_width, top_left_y + capture_height))
+        
+    def from_file(self, image=None):
         img  = f'./test_data/y46BWpd.png'
         # img  = f'./test_data/230410_screenshots_20190707004456_1.jpg'
         # img  = f'./test_data/ezgif-4-36a00c1e29.jpg'
@@ -54,17 +69,6 @@ class Sampler:
             # cv2.imshow('img', img_copy)
             # cv2.waitKey(0)
             self.screenshot = img[w.top_left_y:w.top_left_y+w.capture_height, w.top_left_x:w.top_left_x+w.capture_width]
-        else:
-            # Define a desired capture area size (adjust as needed)
-            capture_width = self.screen_width/3  # Adjust width for your desired capture size
-            capture_height = self.screen_height/4  # Adjust height for your desired capture size
-            middle_x = int(self.screen_width / 2)
-            middle_y = int(self.screen_height / 2)
-            top_left_x = middle_x - int(capture_width / 2)
-            top_left_y = middle_y - int(capture_height / 2)
-            print("No image provided")
-            # Capture the screenshot
-            self.screenshot = ImageGrab.grab((top_left_x, top_left_y, top_left_x + capture_width, top_left_y + capture_height))
         
     def save_ss(self):
         self.screenshot.save(f'ss_{datetime.now()}')
